@@ -1,21 +1,8 @@
 # compass
 
-## Project setup
-```
-npm install
-```
+A new Flutter project.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Getting Started
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+For help getting started with Flutter, view our online
+[documentation](https://flutter.io/).
