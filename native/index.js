@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const average_alpha = alpha;
       if(active.current >= 0 && active.waypoints != null){
         draw_arrow(average_alpha - absolute_angle, canvas.height / 4);
-        let val = Math.min((alpha - absolute_angle - 30) * 50);
+        let val = (alpha - absolute_angle - 30) * 50;
         if(val > 0)
           navigator.vibrate([val, 1000]);
       }else{
