@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(active.current >= 0 && active.waypoints != null){
       //let val = (current_alpha - absolute_angle - 30);
       console.log(absolute_angle)
-      if(Math.abs(absolute_angle - current_alpha - 180) < 15)
+      if(Math.abs(absolute_angle - current_alpha + 180) < 15)
       //if(((absolute_angle-15) < current_alpha) && (current_alpha < (absolute_angle+15)))
         console.log("yay");
       else
