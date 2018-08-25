@@ -30,3 +30,9 @@ i {
   margin-right: 6px;
   color: #2E7D32;
 }
+
+/* MapView styling */
+#map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
