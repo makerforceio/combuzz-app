@@ -81,12 +81,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
   let current_lng = 0;
 
   let absolute_angle = 0;
+  let has_touched = false;
+
+  document.body.addEventListener('mouseup', () => {
+    has_touched = true;
+    document.getElementById('vibration-indicator').style.color = '#4CAF50';
+  });
 
   // Check for compass
   if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
     window.addEventListener('deviceorientation', (event) => {
       const alpha = event.alpha; //Yaw (The one we want)
-      draw_arrow(alpha + absolute_angle, canvas.height / 4);
+      draw_arrow(absolute_angle - alpha, canvas.height / 4);
+      vibrate([(absolute_angle - alpha) * 50, 100])
     });
   } else {
     critical_failing = true;
