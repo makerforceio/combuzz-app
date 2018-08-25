@@ -1,0 +1,21 @@
+{
+  "short_name" : "Combuzz",
+  "name" : "Combuzz",
+  "icons" : [
+    {
+      "src" : "compass-icon-192.png",
+      "type" : "image/png",
+      "sizes" : "192x192"
+    },
+    {
+      "src" : "compass-icon-512.png",
+      "type" : "image/png",
+      "sizes" : "512x512"
+    }
+  ],
+  "start_url" : "/",
+  "background_color" : "rgba(57, 187, 198, 1)",
+  "display" : "standalone",
+  "orientation" : "portrait",
+  "theme_color": "rgba(57, 187, 198, 1)"
+}
