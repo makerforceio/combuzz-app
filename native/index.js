@@ -1,16 +1,5 @@
 const API_KEY = 'AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow';
 
-let autocomplete;
-
-function initMaps() {
-  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
-    types: ['(establishment)']
-  });
-  autocomplete.addListener('place_changed', () => {
-    console.log(autocomplete.getPlace());
-  });
-};
-
 const draw_arrow = (angle, height) => {
   const canvas = document.getElementById('arrow-canvas');
   const context = canvas.getContext('2d');
@@ -81,6 +70,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     draw_arrow(0, canvas.height / 4);
   };
 
+  let autocomplete;
   let critical_failing = false;
   let current_lat = 0;
   let current_lng = 0;
@@ -105,6 +95,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
     navigator.geolocation.getCurrentPosition((position) => {
       current_lat = position.coords.latitude;
       current_lng = position.coords.longitude;
+
+      autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
+        types: ['establishment']
+      });
+      const circle = new google.maps.Circle({
+        center: {
+          lat: current_lat,
+          lng: current_lng
+        },
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+      autocomplete.addListener('place_changed', () => {
+        console.log(autocomplete.getPlace());
+
+        M.Modal.getInstance(document.getElementById('input-modal')).close();
+      });
     });
   } else {
     critical_failing = true;
@@ -115,10 +122,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.body.style.backgroundColor = '#90A4AE';
     // document.getElementById('fab').style.backgroundColor = '#E57373';
     canvas.style.display = 'none';
-  }else{
-    document.getElementById('fab').addEventListener('mouseup', (e) => {
-
-    });
   }
 
   M.Modal.init(document.querySelectorAll('.modal'));

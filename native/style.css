@@ -5,9 +5,6 @@ html, body {
 
 body {
   margin: 0px;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
 }
 
 canvas {
@@ -29,4 +26,22 @@ i {
   font-size: 28pt;
   margin-right: 6px;
   color: #2E7D32;
+}
+
+.fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background-color: #F44336;
+  border-radius: 50%;
+  box-shadow: 2px 2px rgba(0,0,0,0.3);
+}
+
+.fab > i {
+  color: #FFFFFF;
+  margin: 20px;
+}
+
+.pac-container {
+  z-index: 100000;
 }
