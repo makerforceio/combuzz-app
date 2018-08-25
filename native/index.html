@@ -17,17 +17,20 @@
 
   <div id="input-modal" class="modal">
     <div class="modal-content">
-      <input id="destination-input" type="text">
+      <input id="autocomplete" placeholder="Enter a place" type="text" />
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat ">Ok</a>
     </div>
   </div>
+
   <div class="fixed-action-btn">
     <a id="fab" data-target="input-modal" class="btn-floating btn-large red modal-trigger">
       <i class="fas fa-plus"></i>
     </a>
   </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow&libraries=places&callback=initMaps" async defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="./index.js"></script>
 </body>
