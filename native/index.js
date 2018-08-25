@@ -83,6 +83,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
   let absolute_angle = 0;
   let has_touched = false;
 
+  let active = {
+    current: -1,
+    waypoints: null
+  };
+
   document.body.addEventListener('mouseup', () => {
     has_touched = true;
     document.getElementById('vibration-indicator').style.color = '#4CAF50';
@@ -120,10 +125,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     });
 
-    let active = {
-      current: -1,
-      waypoints: null
-    };
+
     navigator.geolocation.getCurrentPosition((position) => {
       current_lat = position.coords.latitude;
       current_lng = position.coords.longitude;
