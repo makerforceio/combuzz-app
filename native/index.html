@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>compass</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
@@ -18,16 +19,20 @@
     <div class="modal-content">
       <div id="map"></div>
       <input id="destination-input" type="text">
+      <input id="autocomplete" placeholder="Enter a place" type="text" />
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat ">Ok</a>
     </div>
   </div>
+
   <div class="fixed-action-btn">
     <a id="fab" data-target="input-modal" class="btn-floating btn-large red modal-trigger">
       <i class="fas fa-plus"></i>
     </a>
   </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow&libraries=places&callback=initMaps" async defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="./index.js"></script>
 </body>

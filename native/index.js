@@ -1,5 +1,16 @@
 const API_KEY = 'AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow';
 
+let autocomplete;
+
+function initMaps() {
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
+    types: ['(establishment)']
+  });
+  autocomplete.addListener('place_changed', () => {
+    console.log(autocomplete.getPlace());
+  });
+};
+
 const draw_arrow = (angle, height) => {
   const canvas = document.getElementById('arrow-canvas');
   const context = canvas.getContext('2d');
@@ -117,25 +128,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   M.Modal.init(document.querySelectorAll('.modal'));
-  M.Autocomplete.init(document.querySelectorAll('.autocomplete'));
-
-  document.getElementById('destination-input').onchange = (e) => {
-    console.log(e.target.value);
-    console.log('2');
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(`${current_lat}, ${current_lng}`);
-      fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURI(e.target.value)}&key=${API_KEY}&location=${current_lat},${current_lng}&types=establishment`, {
-        method: 'GET',
-        mode: 'no-cors'
-      }).then((res) => {
-        return res.json();
-      }).then((body) => {
-        console.log(body);
-      }).catch((err) => {
-        console.log(err);
-      });
-    }, () => {
-      console.log('error');
-    });
-  };
 });
