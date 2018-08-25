@@ -1,5 +1,10 @@
 const API_KEY = 'AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow';
 
+<<<<<<< HEAD
+=======
+let autocomplete;
+
+>>>>>>> e2d0b9d4db7092aeaf586d082f4743d20461ce25
 const draw_arrow = (angle, height) => {
   const canvas = document.getElementById('arrow-canvas');
   const context = canvas.getContext('2d');
@@ -95,6 +100,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     navigator.geolocation.getCurrentPosition((position) => {
       current_lat = position.coords.latitude;
       current_lng = position.coords.longitude;
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: current_lat, lng: current_lng},
+        zoom: 15
+      });
 
       autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
         types: ['establishment']
