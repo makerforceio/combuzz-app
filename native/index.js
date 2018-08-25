@@ -99,14 +99,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
     window.addEventListener('deviceorientation', (event) => {
       const alpha = event.alpha; //Yaw (The one we want)
-      // if(alphas.length > 2){
-      //   // let average_difference =
-      // }
-      // alphas.push(alpha);
-      // if(alphas.length > 10)
-      //   alphas.shift();
-      // const average_alpha = alphas.reduce((a, x) => a + x) / alphas.length;
-      const average_alpha = alpha;
+      alphas.push(alpha);
+      const diff = alpha - alphas[(alphas.length-2)];
+      if(diff <= -180 || diff >= 180)
+        alphas = [alpha];
+      if(alphas.length > 10)
+        alphas.shift();
+      const average_alpha = alphas.reduce((a, x) => a + x) / alphas.length;
+      //const average_alpha = alpha;
       if(active.current >= 0 && active.waypoints != null){
         draw_arrow(average_alpha - absolute_angle, canvas.height / 4);
         let val = (alpha - absolute_angle - 30) * 50;
