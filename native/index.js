@@ -92,8 +92,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
   if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
     window.addEventListener('deviceorientation', (event) => {
       const alpha = event.alpha; //Yaw (The one we want)
-      draw_arrow(absolute_angle - alpha, canvas.height / 4);
-      vibrate([(absolute_angle - alpha) * 50, 100])
+      if(active.current >= 0 && active.waypoints != null){
+        draw_arrow(alpha - absolute_angle, canvas.height / 4);
+        vibrate([200, 100]);
+      }else{
+        draw_arrow(alpha, canvas.height / 4);
+      }
     });
   } else {
     critical_failing = true;
