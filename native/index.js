@@ -1,5 +1,10 @@
 const API_KEY = 'AIzaSyBtPHKF-p6zR5bCVS3p2az4gVv8Xa0y8ow';
 
+const DEFAULT_COLOUR = '#26C6DA';
+const FAIL_COLOUR = '#C62828';
+
+const R = 6371;
+
 const draw_arrow = (angle, height) => {
   const canvas = document.getElementById('arrow-canvas');
   const context = canvas.getContext('2d');
@@ -75,23 +80,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
   let current_lat = 0;
   let current_lng = 0;
 
+  let absolute_angle = 0;
+
   // Check for compass
   if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
-    console.log('1')
     window.addEventListener('deviceorientation', (event) => {
       const alpha = event.alpha; //Yaw (The one we want)
-      draw_arrow(alpha, canvas.height / 4);
+      draw_arrow(alpha + absolute_angle, canvas.height / 4);
     });
   } else {
     critical_failing = true;
-    document.getElementById('compass-indicator').style.color = '#C62828';
+    document.getElementById('compass-indicator').style.color = FAIL_COLOUR;
   }
 
   if ('geolocation' in navigator) {
     navigator.geolocation.watchPosition((position) => {
       current_lat = position.coords.latitude;
       current_lng = position.coords.longitude;
+
+      if(active.waypoints != null && active.current >= 0 && active.current < active.waypoints.length) {
+        let lat = active.waypoints[active.current].lat;
+        let lng = active.waypoints[active.current].lng;
+        let y = Math.sin(lng - current_lng) * Math.cos(lat);
+        let x = Math.cos(current_lat) * Math.sin(lat) - Math.sin(current_lat) * Math.cos(lat) * Math.cos(lng - current_lng);
+
+        absolute_angle = Math.atan2(y, x) * 180 / Math.PI;
+      }
     });
+
+    let active = {
+      current: -1,
+      waypoints: null
+    };
     navigator.geolocation.getCurrentPosition((position) => {
       current_lat = position.coords.latitude;
       current_lng = position.coords.longitude;
@@ -104,6 +124,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         scaleControl: true
       });
 
+
+
+      let ds = new google.maps.DirectionsService;
+      let ps = new google.maps.places.PlacesService(map);
       autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
         types: ['establishment']
       });
@@ -116,14 +140,50 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
       autocomplete.setBounds(circle.getBounds());
       autocomplete.addListener('place_changed', () => {
-        console.log(autocomplete.getPlace());
+        ds.route({
+          origin: new google.maps.LatLng(current_lat, current_lng),
+          destination: { 'placeId': autocomplete.getPlace().place_id },
+          travelMode: 'WALKING'
+        }, (res, status) => {
+          if(status === 'OK'){
+            Promise.all(res.geocoded_waypoints.map((waypoint) => {
+              return new Promise((resolve, reject) => {
+                ps.getDetails({
+                  placeId: waypoint.place_id,
+                  fields: ['geometry']
+                }, (place, status) => {
+                  if(status === 'OK'){
+                    console.log(place.geometry.location.lat);
+                    resolve({
+                      lat: place.geometry.location.lat(),
+                      lng: place.geometry.location.lng()
+                    });
+                  } else {
+                    reject();
+                  }
+                });
+              })
+            })).then((waypoints) => {
+              active.current = 1;
+              active.waypoints = waypoints;
 
+              let lat = active.waypoints[active.current].lat;
+              let lng = active.waypoints[active.current].lng;
+              let y = Math.sin(lng - current_lng) * Math.cos(lat);
+              let x = Math.cos(current_lat) * Math.sin(lat) - Math.sin(current_lat) * Math.cos(lat) * Math.cos(lng - current_lng);
+
+              absolute_angle = Math.atan2(y, x) * 180 / Math.PI;
+            });
+          }else{
+            console.log(status);
+          }
+        });
         M.Modal.getInstance(document.getElementById('input-modal')).close();
       });
     });
   } else {
     critical_failing = true;
-    document.getElementById('gps-indicator').style.color = '#C62828';
+    document.getElementById('gps-indicator').style.color = FAIL_COLOUR;
   }
 
   if(critical_failing){
