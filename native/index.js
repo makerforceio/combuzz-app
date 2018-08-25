@@ -10,8 +10,8 @@ const draw_arrow = (angle, height) => {
   const canvas_half_height = canvas.height / 2;
 
   const radians = angle * Math.PI / 180;
-  const rad30 = 30 * Math.PI / 180;
-  const rad60 = 60 * Math.PI / 180;
+  const rad30 = 60 * Math.PI / 180;
+  const rad60 = 30 * Math.PI / 180;
 
   const short_length = (height / 4) / Math.cos(rad30);
   const half_width = (height / 4) * Math.tan(rad30);
@@ -31,17 +31,17 @@ const draw_arrow = (angle, height) => {
   let y = canvas_half_height;
   context.moveTo(x, y);
 
-  x += short_length * Math.cos(radians + rad60) * 2;
+  x += short_length * Math.cos(radians + rad60);
   y += short_length * Math.sin(radians + rad60);
   context.lineTo(x, y);
 
   const long_angle = Math.atan(height / half_width);
-  x += long_length * Math.cos((Math.PI + long_angle) + radians) * 2;
+  x += long_length * Math.cos((Math.PI + long_angle) + radians);
   y += long_length * Math.sin((Math.PI + long_angle) + radians);
   context.lineTo(x, y);
 
   const top_angle = Math.PI - long_angle;
-  x += long_length * Math.cos(top_angle + radians) * 2;
+  x += long_length * Math.cos(top_angle + radians);
   y += long_length * Math.sin(top_angle + radians);
   context.lineTo(x, y);
 
