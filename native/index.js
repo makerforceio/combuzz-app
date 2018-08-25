@@ -125,11 +125,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   const vibrator = () => {
     if(active.current >= 0 && active.waypoints != null){
-      let val = (current_alpha - absolute_angle - 30) * 50;
+      let val = (current_alpha - absolute_angle - 30) * 20;
       if(val > 0)
         navigator.vibrate([val, 1000]);
     }
-    setTimeout(vibrator, 1000);
+    setTimeout(vibrator, 4000);
   }
   vibrator();
 
