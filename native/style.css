@@ -17,15 +17,19 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  margin: 4px;
+  margin: 10px;
   z-index: 2;
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.25);
 }
 
-i {
+.overlay > i {
   /* font-size: 2rem; /*32*/
-  font-size: 28pt;
-  margin-right: 6px;
-  color: #2E7D32;
+  font-size: 20pt;
+  margin: 0px 5px;
+  color: #4CAF50;
 }
 
 .fab {
@@ -34,7 +38,7 @@ i {
   right: 40px;
   background-color: #F44336;
   border-radius: 50%;
-  box-shadow: 2px 2px rgba(0,0,0,0.3);
+  box-shadow: 2px 3px 10px 0px rgba(0,0,0,0.25);
 }
 
 .fab > i {
