@@ -116,20 +116,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('destination-input').onchange = (e) => {
     console.log(e.target.value);
     console.log('2');
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(`${current_lat}, ${current_lng}`);
-      fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURI(e.target.value)}&key=${API_KEY}&location=${current_lat},${current_lng}&types=establishment`, {
-        method: 'GET',
-        mode: 'no-cors'
-      }).then((res) => {
-        return res.json();
-      }).then((body) => {
-        console.log(body);
-      }).catch((err) => {
-        console.log(err);
-      });
-    }, () => {
-      console.log('error');
+    console.log(`${current_lat}, ${current_lng}`);
+    fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURI(e.target.value)}&key=${API_KEY}&location=${current_lat},${current_lng}&types=establishment`, {
+      method: 'GET',
+      // mode: 'no-cors'
+    }).then((res) => {
+      return res.json();
+    }).then((body) => {
+      console.log(body);
+    }).catch((err) => {
+      console.log(err);
     });
   };
 });
