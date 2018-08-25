@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const alpha = event.alpha; //Yaw (The one we want)
       if(active.current >= 0 && active.waypoints != null){
         draw_arrow(alpha - absolute_angle, canvas.height / 4);
-        navigator.vibrate([(absolute_angle - alpha) * 50, 100]);
+        navigator.vibrate([(alpha - absolute_angle) * 50, 100]);
       }else{
         draw_arrow(alpha, canvas.height / 4);
       }
