@@ -70,6 +70,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     draw_arrow(0, canvas.height / 4);
   };
 
+  // MapView stuff
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+
   let critical_failing = false;
   let current_lat = 0;
   let current_lng = 0;
